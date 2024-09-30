@@ -1,0 +1,11 @@
+{
+  "name": "publish-test-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepublishOnly": "npm run build"
+  },
+  "author": "",
+  "license": "ISC"
+}
