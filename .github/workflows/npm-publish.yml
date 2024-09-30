@@ -7,16 +7,25 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "22"
-      - run: npm install
-      - run: npm run build
-      - run: echo "${{ secrets.NPM_AUTH_TOKEN }}"
+      - name: 'Checkout'
+        uses: actions/checkout@v4
 
-      - uses: JS-DevTools/npm-publish@v3
+      - name: 'Setup Node.js v22.* '
+        uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.NPM_AUTH_TOKEN }}
-          package: "./packages/app"
-          registry: "https://registry.npmjs.org/"
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 'Install dependencies (npm install) 📦...'
+        run: npm install
+
+      - name: 'Run build (npm run build) 🔧...'
+        run: npm run build
+
+      - name: 'Change CWD to ./packages/@bitrix24-icons-vue'
+        run: cd ./packages/@bitrix24-icons-vue
+
+      - name: 'Publish to NPM registry (npm publish)'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
