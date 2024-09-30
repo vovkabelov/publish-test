@@ -22,10 +22,9 @@ jobs:
       - name: 'Run build (npm run build) 🔧...'
         run: npm run build
 
-      - name: 'Change CWD to ./packages/@bitrix24-icons-vue'
-        run: cd ./packages/app
-
-      - name: 'Publish to NPM registry (npm publish)'
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: 'Publish package from ./packages/@bitrix24-icons-vue'
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+          package: "./packages/app"
+          registry: "https://registry.npmjs.org/"
